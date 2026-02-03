@@ -2,9 +2,9 @@ name: Rust CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -32,7 +32,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     steps:
     - uses: actions/checkout@v3
     
@@ -46,7 +46,7 @@ jobs:
           cd ~/projects/hello-rust-cicd 2>/dev/null || mkdir -p ~/projects/hello-rust-cicd
           cd ~/projects/hello-rust-cicd
           if [ -d .git ]; then
-            git pull origin main
+            git pull origin master
           else
             git clone https://github.com/${{ github.repository }} .
           fi
